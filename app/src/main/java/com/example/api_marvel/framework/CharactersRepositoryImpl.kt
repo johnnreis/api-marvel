@@ -12,6 +12,6 @@ class CharactersRepositoryImpl @Inject constructor(
 ) : CharactersRepository {
 
     override fun getCharacters(query: String): PagingSource<Int, Character> {
-        return CharactersPaging()
+        TODO("Implementar o CharactersPaging")
     }
 }
