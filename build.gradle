@@ -6,6 +6,7 @@ buildscript {
     ext.hilt_version = '2.50'
     ext.detekt_version = '1.23.7'
     ext.build_gradle_version = '7.6.3'
+    ext.courotines_version = '1.7.3'
 
     dependencies {
         classpath "com.android.tools.build:gradle:$build_gradle_version"
