@@ -1,4 +1,4 @@
-package com.example.core.data.network
+package com.example.api_marvel.framework.di.network
 
 import com.example.core.data.network.response.DataWrapperResponse
 import retrofit2.http.GET
