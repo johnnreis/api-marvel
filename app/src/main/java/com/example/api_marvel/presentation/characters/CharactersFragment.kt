@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.api_marvel.databinding.FragmentCharactersBinding
 import com.example.core.domain.model.Character
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment() {
@@ -16,6 +19,8 @@ class CharactersFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val charactersAdapter = CharactersAdapter()
+
+    private val viewModel : CharactersViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,22 +36,11 @@ class CharactersFragment : Fragment() {
 
         initCharactersAdapter()
 
-        charactersAdapter.submitList(
-            listOf(
-                Character("3D-Man", "https://cinepop.com.br/wp-content/uploads/" +
-                        "2019/03/capitamarvel_27-1280x720-696x392.jpg"),
-                Character("3D-Man", "https://cinepop.com.br/wp-content/uploads/" +
-                        "2019/03/capitamarvel_27-1280x720-696x392.jpg"),
-                Character("3D-Man", "https://cinepop.com.br/wp-content/uploads/" +
-                        "2019/03/capitamarvel_27-1280x720-696x392.jpg"),
-                Character("3D-Man", "https://cinepop.com.br/wp-content/uploads/" +
-                        "2019/03/capitamarvel_27-1280x720-696x392.jpg"),
-                Character("3D-Man", "https://cinepop.com.br/wp-content/uploads/" +
-                        "2019/03/capitamarvel_27-1280x720-696x392.jpg"),
-                Character("3D-Man", "https://cinepop.com.br/wp-content/uploads/" +
-                        "2019/03/capitamarvel_27-1280x720-696x392.jpg"),
-            )
-        )
+        lifecycleScope.launch {
+            viewModel.charactersPagingData("").collect { pagingData ->
+                charactersAdapter.submitData(pagingData)
+            }
+        }
 
     }
 
