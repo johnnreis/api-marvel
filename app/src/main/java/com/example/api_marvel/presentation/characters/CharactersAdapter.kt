@@ -1,9 +1,8 @@
-package com.example.api_marvel.presentation.characters.adapter
+package com.example.api_marvel.presentation.characters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.api_marvel.presentation.characters.CharactersViewHolder
 import com.example.core.domain.model.Character
 
 class CharactersAdapter : ListAdapter<Character, CharactersViewHolder>(diffCallBack) {
