@@ -7,7 +7,7 @@ import java.security.MessageDigest
 import java.util.Calendar
 
 class AuthorizationInterceptor(
-    private val publicKey : String,
+    private val publicKey: String,
     private val privateKey: String,
     private val calendar: Calendar
 ) : Interceptor {
@@ -17,11 +17,12 @@ class AuthorizationInterceptor(
         val request = chain.request()
         val requestUrl = request.url
 
-        val timeSeconds = (calendar.timeInMillis / 1000L).toString() // operation for return time in seconds
+        val ts = (calendar.timeInMillis / 1000L).toString() // operation for return time in seconds
 
-        val hash = "$timeSeconds$privateKey$publicKey".md5()
+        val hash = "$ts$privateKey$publicKey".md5()
+
         val newUrl = requestUrl.newBuilder()
-            .addQueryParameter(QUERY_PARAMETER_TS, timeSeconds)
+            .addQueryParameter(QUERY_PARAMETER_TS, ts)
             .addQueryParameter(QUERY_PARAMETER_API_KEY, publicKey)
             .addQueryParameter(QUERY_PARAMETER_HASH, hash)
             .build()
@@ -34,14 +35,14 @@ class AuthorizationInterceptor(
     }
 
     @Suppress("MagicNumber")
-    private fun String.md5() : String {
+    private fun String.md5(): String {
         val md = MessageDigest.getInstance("MD5")
         return BigInteger(1, md.digest(toByteArray())).toString(16).padStart(32, '0')
     }
 
     companion object {
         private const val QUERY_PARAMETER_TS = "ts"
-        private const val QUERY_PARAMETER_API_KEY = "apiKey"
+        private const val QUERY_PARAMETER_API_KEY = "apikey"
         private const val QUERY_PARAMETER_HASH = "hash"
     }
 
