@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.api_marvel.R
 import com.example.api_marvel.databinding.FragmentCharactersBinding
-import com.example.api_marvel.presentation.characters.adapter.CharactersAdapter
 import com.example.core.domain.model.Character
 import dagger.hilt.android.AndroidEntryPoint
 
