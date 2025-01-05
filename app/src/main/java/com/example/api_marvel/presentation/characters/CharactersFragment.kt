@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.api_marvel.databinding.FragmentCharactersBinding
-import com.example.core.domain.model.Character
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
