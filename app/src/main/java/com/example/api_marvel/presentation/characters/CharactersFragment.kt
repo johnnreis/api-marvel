@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.example.api_marvel.databinding.FragmentCharactersBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -34,6 +37,7 @@ class CharactersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initCharactersAdapter()
+        observeInitialLoadState()
 
         lifecycleScope.launch {
             viewModel.charactersPagingData("").collect { pagingData ->
@@ -50,6 +54,35 @@ class CharactersFragment : Fragment() {
         }
     }
 
+    private fun observeInitialLoadState() {
+        lifecycleScope.launch {
+            charactersAdapter.loadStateFlow.collectLatest { loadState ->
+                binding.flipperCharacters.displayedChild = when (loadState.refresh) {
+                    is LoadState.Loading -> {
+                        listenStateLoading(true)
+                        FLIPPER_CHILD_LOADING
+                    }
+                    is LoadState.NotLoading -> {
+                        listenStateLoading(false)
+                        FLIPPER_CHILD_SUCCESS_CHARACTERS
+                    }
+                    is LoadState.Error -> FLIPPER_CHILD_ERROR
+                }
+            }
+        }
+    }
+
+    private fun listenStateLoading(visibility: Boolean) {
+        if (visibility) {
+            binding.fvProgressLoading.progressLoading.isVisible
+        } else binding.fvProgressLoading.progressLoading.isVisible = false
+    }
+
+    companion object {
+        private const val FLIPPER_CHILD_LOADING = 0
+        private const val FLIPPER_CHILD_SUCCESS_CHARACTERS = 1
+        private const val FLIPPER_CHILD_ERROR = 2
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

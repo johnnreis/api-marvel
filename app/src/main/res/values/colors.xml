@@ -19,4 +19,7 @@
     <color name="unchecked_chip">@color/medium_grey</color>
     <color name="checked_chip_text">@color/red_800</color>
     <color name="unchecked_chip_text">@color/black</color>
+
+    <!-- Progress Bar Color -->
+    <color name="progress_bar_color">#F93827</color>
 </resources>
