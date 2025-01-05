@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import com.example.api_marvel.databinding.FragmentCharactersBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +22,7 @@ class CharactersFragment : Fragment() {
     private var _binding : FragmentCharactersBinding? = null
     private val binding get() = _binding!!
 
-    private val charactersAdapter = CharactersAdapter()
+    private lateinit var charactersAdapter : CharactersAdapter
 
     private val viewModel : CharactersViewModel by viewModels()
 
@@ -40,14 +42,17 @@ class CharactersFragment : Fragment() {
         observeInitialLoadState()
 
         lifecycleScope.launch {
-            viewModel.charactersPagingData("").collect { pagingData ->
-                charactersAdapter.submitData(pagingData)
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.charactersPagingData("").collect { pagingData ->
+                    charactersAdapter.submitData(pagingData)
+                }
             }
         }
 
     }
 
     private fun initCharactersAdapter() {
+        charactersAdapter = CharactersAdapter()
         binding.recyclerCharacters.run {
             setHasFixedSize(true)
             adapter = charactersAdapter
@@ -66,16 +71,19 @@ class CharactersFragment : Fragment() {
                         listenStateLoading(false)
                         FLIPPER_CHILD_SUCCESS_CHARACTERS
                     }
-                    is LoadState.Error -> FLIPPER_CHILD_ERROR
+                    is LoadState.Error -> {
+                        listenStateLoading(false)
+                        FLIPPER_CHILD_ERROR
+                    }
                 }
             }
         }
     }
 
-    private fun listenStateLoading(visibility: Boolean) {
-        if (visibility) {
+    private fun listenStateLoading(isVisibility: Boolean) {
+        if (isVisibility) {
             binding.fvProgressLoading.progressLoading.isVisible
-        } else binding.fvProgressLoading.progressLoading.isVisible = false
+        }
     }
 
     companion object {

@@ -36,4 +36,5 @@
     <!-- About -->
     <string name="about_screen_title">About</string>
     <string name="about_attribution">Data provided by Marvel. © 2021 Marvel</string>
+    <string name="text_view_characters_error_state">Error when trying to load Heroes</string>
 </resources>
