@@ -59,11 +59,11 @@ class CharactersFragment : Fragment() {
             charactersAdapter.loadStateFlow.collectLatest { loadState ->
                 binding.flipperCharacters.displayedChild = when (loadState.refresh) {
                     is LoadState.Loading -> {
-                        setShimmerVisibility(true)
+                        listenStateLoading(true)
                         FLIPPER_CHILD_LOADING
                     }
                     is LoadState.NotLoading -> {
-                        setShimmerVisibility(false)
+                        listenStateLoading(false)
                         FLIPPER_CHILD_SUCCESS_CHARACTERS
                     }
                     is LoadState.Error -> FLIPPER_CHILD_ERROR
@@ -72,13 +72,10 @@ class CharactersFragment : Fragment() {
         }
     }
 
-    private fun setShimmerVisibility(visibility: Boolean) {
-        binding.includeViewCharactersLoadingState.shimmerCharacters.run {
-            isVisible = visibility
-            if (visibility) {
-                startShimmer()
-            } else stopShimmer()
-        }
+    private fun listenStateLoading(visibility: Boolean) {
+        if (visibility) {
+            binding.fvProgressLoading.progressLoading.isVisible
+        } else binding.fvProgressLoading.progressLoading.isVisible = false
     }
 
     companion object {
@@ -86,8 +83,6 @@ class CharactersFragment : Fragment() {
         private const val FLIPPER_CHILD_SUCCESS_CHARACTERS = 1
         private const val FLIPPER_CHILD_ERROR = 2
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
