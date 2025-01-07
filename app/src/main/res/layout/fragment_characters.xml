@@ -20,8 +20,4 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_characters" />
 
-   <!-- <include
-        android:id="@+id/characters_view_error_state"
-        layout="@layout/characters_view_error_state" />
-    -->
 </ViewFlipper>

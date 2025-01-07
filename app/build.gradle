@@ -61,7 +61,8 @@ dependencies {
     implementation project(':core')
 
     implementation libs.androidx.core.ktx
-    implementation libs.androidx.appcompat
+    implementation libs.androidx.appcompat\
+
     // Material design
     implementation libs.material.v1120
     implementation libs.androidx.legacy.support.v4

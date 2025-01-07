@@ -14,7 +14,7 @@ class CharactersLoadMoreStateViewHolder (
 
     private val binding = FragmentProgressLoadingBinding.bind(itemView)
     private val progressBarLoadingMore = binding.progressLoading
-    private val textTryAgainMessage = binding.textTryAgain.also {
+    private val buttonTryAgain = binding.btnRetryAgain.also {
         it.setOnClickListener {
             retry()
         }
@@ -23,7 +23,7 @@ class CharactersLoadMoreStateViewHolder (
 
     fun bind(loadState: LoadState) {
         progressBarLoadingMore.isVisible = loadState is LoadState.Loading
-        textTryAgainMessage.isVisible = loadState is LoadState.Error
+        buttonTryAgain.isVisible = loadState is LoadState.Error
     }
 
     companion object {

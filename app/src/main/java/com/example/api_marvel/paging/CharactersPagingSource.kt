@@ -15,6 +15,7 @@ class CharactersPagingSource(
     @Suppress("TooGenericExceptionCaught")
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
       return  try {
+          @Suppress("MagicNumber")
             val offset = params.key ?: 0
 
             val queries = hashMapOf("offset" to offset.toString())
@@ -31,7 +32,7 @@ class CharactersPagingSource(
             LoadResult.Page(
                 data = response.data.results.map { it.toCharacterModel() },
                 prevKey = null,
-                nextKey = if (responseOffSet > totalCharacters) { responseOffSet + LIMIT } else null
+                nextKey = if (responseOffSet < totalCharacters) { responseOffSet + LIMIT } else null
             )
 
         } catch (exception: Exception) {

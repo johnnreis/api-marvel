@@ -1,6 +1,7 @@
 package com.example.api_marvel.presentation.characters
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -54,8 +55,14 @@ class CharactersFragment : Fragment() {
     private fun initCharactersAdapter() {
         charactersAdapter = CharactersAdapter()
         binding.recyclerCharacters.run {
+            scrollToPosition(0)
             setHasFixedSize(true)
-            adapter = charactersAdapter
+            adapter = charactersAdapter.withLoadStateFooter(
+                footer = CharactersLoadingStateAdapter(
+                    charactersAdapter::retry
+                )
+            )
+
         }
     }
 
@@ -74,6 +81,7 @@ class CharactersFragment : Fragment() {
                     is LoadState.Error -> {
                         listenStateLoading(false)
                         FLIPPER_CHILD_ERROR
+
                     }
                 }
             }
@@ -82,7 +90,18 @@ class CharactersFragment : Fragment() {
 
     private fun listenStateLoading(isVisibility: Boolean) {
         if (isVisibility) {
-            binding.fvProgressLoading.progressLoading.isVisible
+            binding.fvProgressLoading.progressLoading.isVisible = true
+            binding.fvProgressLoading.textTryAgain.isVisible = false
+            binding.fvProgressLoading.btnRetryAgain.isVisible = false
+        } else {
+            binding.fvProgressLoading.textTryAgain.isVisible = true
+            binding.fvProgressLoading.progressLoading.isVisible = false
+            binding.fvProgressLoading.btnRetryAgain.isVisible = true
+            binding.fvProgressLoading.btnRetryAgain.also {
+                it.setOnClickListener {
+                   TODO("tratar dados para reload dos dados")
+                }
+            }
         }
     }
 
