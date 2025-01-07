@@ -99,7 +99,8 @@ class CharactersFragment : Fragment() {
             binding.fvProgressLoading.btnRetryAgain.isVisible = true
             binding.fvProgressLoading.btnRetryAgain.also {
                 it.setOnClickListener {
-                   TODO("tratar dados para reload dos dados")
+                    binding.fvProgressLoading.progressLoading.isVisible = true
+                   charactersAdapter.refresh()
                 }
             }
         }
