@@ -12,7 +12,7 @@ java {
 }
 
 android {
-    namespace 'com.example.api_marvel'
+    namespace 'com.example.api_marvel.core'
     compileSdk 34
 
     defaultConfig {

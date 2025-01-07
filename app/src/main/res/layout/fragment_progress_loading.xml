@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fv_progress_loading"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,14 +11,18 @@
         android:id="@+id/text_try_again"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/error_loading_more_try_again"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textColor="@color/white"
         android:background="@color/black_800"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="24dp" />
-
+        android:paddingVertical="24dp"
+        android:text="@string/error_loading_more_try_again"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progress_loading"
@@ -26,6 +31,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:foregroundTint="@color/progress_bar_color"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_try_again" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btn_retry_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="@string/common_try_again"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_try_again" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
