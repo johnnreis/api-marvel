@@ -7,6 +7,8 @@
 - Dagger Hilt
 - Paging Libary
 - MVVM
-- Clean Archictecture 
+- Clean Archictecture
+- Mockitto
+- JUnit
 
 ## How Use
