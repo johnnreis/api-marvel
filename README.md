@@ -1,5 +1,6 @@
 # About Project
 
+<p>an application consuming the api marvel</p>
 
 ## Techs and Tools Used
 
