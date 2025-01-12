@@ -46,6 +46,7 @@ dependencies {
 
     // Courotines Core
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$courotines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$courotines_version"
 }
 
 kotlin {

@@ -111,4 +111,13 @@ dependencies {
     // Other Libs
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation "androidx.datastore:datastore-preferences:1.1.1"
+
+    testImplementation "androidx.room:room-testing:$room_version"
+
+    // Unit Test
+    testImplementation 'junit:junit:4.13.1'
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+
 }
