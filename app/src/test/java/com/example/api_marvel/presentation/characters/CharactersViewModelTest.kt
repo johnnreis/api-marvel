@@ -7,7 +7,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.count
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
@@ -75,7 +75,14 @@ class CharactersViewModelTest  {
                 // Valida se contem um flow
                 val result = charactersViewModel.charactersPagingData("")
 
-                assertNotNull(result.first())
+                assertNotNull(result.first() )
 
         }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @After
+    fun tearDownDispatcher() {
+        Dispatchers.resetMain()
+        dispatcher.cancel()
+    }
 }
